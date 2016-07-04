@@ -1,0 +1,26 @@
+version: "2"
+
+services:
+  nginx:
+    build : nginx
+    ports :
+     - 80:80
+    links:
+     - test:test
+     - dev:dev
+
+  test:
+    build: ./test-app
+    volumes:
+     - .:/code
+
+  dev:
+    build: ./dev-app
+    volumes:
+     - .:/code
+
+###################### Docker Network #####################
+networks:
+  default:
+    external:
+      name: routing-net
